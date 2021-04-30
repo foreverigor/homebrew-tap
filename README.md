@@ -1,4 +1,6 @@
-# Foreverigor Tap
+# My Homebrew Tap
+## Contains
+Currently just one cask: [`ghidra-app`](https://github.com/foreverigor/homebrew-tap/blob/HEAD/Casks/ghidra-app.rb), which installs Ghidra as a standalone macOS app.
 
 ## How do I install these formulae?
 
