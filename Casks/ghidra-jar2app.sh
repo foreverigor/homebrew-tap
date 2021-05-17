@@ -52,15 +52,15 @@ fi
 mkdir -p "$GHIDRA_DIR"
 mv "$GHIDRA_FILE" "$GHIDRA_DIR/$GHIDRA_JAR"
 
-JPACKAGE_OPTS="--type app-image --name Ghidra --mac-package-identifier org.ghidra-sre.Ghidra"
-if [ -n "$VERSION" ]; then JPACKAGE_OPTS="$JPACKAGE_OPTS --app-version $VERSION"; fi
-if [ -f $GHIDRA_ICNS ]; then JPACKAGE_OPTS="$JPACKAGE_OPTS --icon $GHIDRA_ICNS"; fi
-JPACKAGE_OPTS="$JPACKAGE_OPTS --input $GHIDRA_DIR --main-jar $GHIDRA_JAR --main-class ghidra.JarRun"
-JPACKAGE_OPTS="$JPACKAGE_OPTS --dest $DIR --java-options '--illegal-access=permit' --java-options -Dapple.laf.useScreenMenuBar=true --arguments -gui"
+JPACKAGE_OPTS=(--type app-image --name Ghidra --mac-package-identifier org.ghidra-sre.Ghidra)
+if [ -n "$VERSION" ]; then JPACKAGE_OPTS+=(--app-version "$VERSION"); fi
+if [ -f $GHIDRA_ICNS ]; then JPACKAGE_OPTS+=(--icon "$GHIDRA_ICNS"); fi
+JPACKAGE_OPTS+=(--input "$GHIDRA_DIR" --main-jar "$GHIDRA_JAR" --main-class ghidra.JarRun)
+JPACKAGE_OPTS+=(--dest "$DIR" --java-options '--illegal-access=permit' --java-options '-Dapple.laf.useScreenMenuBar=true' --arguments -gui)
 
 ### Run jpackage:
 echo "Running jpackage"
-"${JAVA_BIN}"/jpackage $JPACKAGE_OPTS
+"${JAVA_BIN}"/jpackage "${JPACKAGE_OPTS[@]}"
 
 # References:
 # https://gist.github.com/saagarjha/777909b257dbfa98649476b7f5af41bb (useScreenMenuBar flag)
